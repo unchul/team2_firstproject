@@ -13,7 +13,7 @@ public class ReservationDAO {
             while (rs.next()) {
                 System.out.println(
                     rs.getInt("reservation_key") + " | " +
-                    rs.getInt("user_id") + " | " +
+                    rs.getInt("user_num") + " | " +
                     rs.getInt("lodging_num") + " | " +
                     rs.getString("lodging_room") + " | " +
                     rs.getDate("reservation_date") + " | " +
@@ -27,18 +27,18 @@ public class ReservationDAO {
         }
     }
 
-    public void selectByUserId(int userId) {
-        String sql = "SELECT * FROM reservation WHERE user_id = ?";
+    public void selectByUserNum(int userNum) {
+        String sql = "SELECT * FROM reservation WHERE user_num = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, userId);
+            pstmt.setInt(1, userNum);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 System.out.println(
                     rs.getInt("reservation_key") + " | " +
-                    rs.getInt("user_id") + " | " +
+                    rs.getInt("user_num") + " | " +
                     rs.getInt("lodging_num") + " | " +
                     rs.getString("lodging_room") + " | " +
                     rs.getDate("reservation_date") + " | " +
@@ -53,7 +53,7 @@ public class ReservationDAO {
     }
 
     public void insert(int reservationKey, Reservation r) {
-        String sql = "INSERT INTO reservation (reservation_key, lodging_num, lodging_room, reservation_date, user_id, guest, reservation_period) " +
+        String sql = "INSERT INTO reservation (reservation_key, lodging_num, lodging_room, reservation_date, user_num, guest, reservation_period) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnect.getConnection();
@@ -63,7 +63,7 @@ public class ReservationDAO {
             pstmt.setInt(2, r.getLodgingNum());
             pstmt.setString(3, r.getLodgingRoom());
             pstmt.setString(4, r.getReservationDate());
-            pstmt.setInt(5, r.getUserId());
+            pstmt.setInt(5, r.getUserNum());
             pstmt.setInt(6, r.getGuest());
             pstmt.setInt(7, r.getReservationPeriod());
 
@@ -89,10 +89,10 @@ public class ReservationDAO {
         return 1;
     }
 
-    public void update(int reservationKey, String newDate, int newGuest, int userId, boolean isAdmin) {
+    public void update(int reservationKey, String newDate, int newGuest, int userNum, boolean isAdmin) {
         String sql = isAdmin ?
             "UPDATE reservation SET reservation_date = ?, guest = ? WHERE reservation_key = ?" :
-            "UPDATE reservation SET reservation_date = ?, guest = ? WHERE reservation_key = ? AND user_id = ?";
+            "UPDATE reservation SET reservation_date = ?, guest = ? WHERE reservation_key = ? AND user_num = ?";
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -100,7 +100,7 @@ public class ReservationDAO {
             pstmt.setString(1, newDate);
             pstmt.setInt(2, newGuest);
             pstmt.setInt(3, reservationKey);
-            if (!isAdmin) pstmt.setInt(4, userId);
+            if (!isAdmin) pstmt.setInt(4, userNum);
 
             int result = pstmt.executeUpdate();
             if (result > 0) System.out.println("예약 정보가 수정되었습니다.");
@@ -110,16 +110,16 @@ public class ReservationDAO {
         }
     }
 
-    public void delete(int reservationKey, int userId, boolean isAdmin) {
+    public void delete(int reservationKey, int userNum, boolean isAdmin) {
         String sql = isAdmin ?
             "DELETE FROM reservation WHERE reservation_key = ?" :
-            "DELETE FROM reservation WHERE reservation_key = ? AND user_id = ?";
+            "DELETE FROM reservation WHERE reservation_key = ? AND user_num = ?";
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, reservationKey);
-            if (!isAdmin) pstmt.setInt(2, userId);
+            if (!isAdmin) pstmt.setInt(2, userNum);
 
             int result = pstmt.executeUpdate();
             if (result > 0) System.out.println("예약이 삭제되었습니다.");

@@ -6,27 +6,24 @@ import java.util.Scanner;
 import main.java.user.LoginSession;
 
 public class ReservationSystem {
-    private static int currentUserId; // static 선언
+    private static int currentUserNum; // static 선언
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ReservationService service = new ReservationService();
 
         // 로그인 처리 - 테스트용으로 userId 수동 입력 (나중에 로그인 시스템 연결 예정)
-        System.out.print("userId 입력 > ");
-        int userId = sc.nextInt();
-        sc.nextLine(); // 개행 문자 제거
+//        System.out.print("userId 입력 > ");
+//        int userId = sc.nextInt();
+//        sc.nextLine(); // 개행 문자 제거
         
-        
-        /// 여기로 수정!! userId 넘겨받는것만 추가 수정하고, userId 선언 시 static이어야 함
-        // int userId = Login.loginUser.getUserId();
         if (!LoginSession.isLoggedIn) {
             System.out.println("먼저 로그인 해주세요.");
             return;
         }
 
-        userId = LoginSession.loggedInUserNum;
-        service.setCurrentUserId(userId);
+        currentUserNum = LoginSession.loggedInUserNum;
+        service.setCurrentUserNum(currentUserNum);
         boolean isAdmin = LoginSession.isAdmin;
         
 
@@ -48,7 +45,7 @@ public class ReservationSystem {
 
             switch (choice) {
                 case 1:
-                	System.out.println("\n[예약번호 | 유저id | 숙소코드 | 룸번호 | 예약일 | 투숙인원 | 기간]");
+                	System.out.println("\n[예약번호 | 유저번호 | 숙소코드 | 룸번호 | 예약일 | 투숙인원 | 기간]");
                 	System.out.println("-------------------------------------------------");
 
                     if (isAdmin) service.selectAll();
