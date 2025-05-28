@@ -1,4 +1,4 @@
-package select;
+package select; 
 
 import java.util.Scanner;
 public class BookingSystem {
