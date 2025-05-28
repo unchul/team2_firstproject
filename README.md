@@ -20,7 +20,7 @@
 
 <aside>
 
-![image.png](attachment:08db4f2b-e076-4dc2-b66e-74bbfb6d8241:image.png)
+https://img.notionusercontent.com/s3/prod-files-secure%2Ffaab0771-3ad8-8190-8c8e-0003a6d2ca6e%2F08db4f2b-e076-4dc2-b66e-74bbfb6d8241%2Fimage.png/size/w=2000?exp=1748419699&sig=H-84Sni5x9rlH8V4JvLmu5aUDFa7xWnNZAE4kZ8uX5I&id=201b0771-3ad8-80b6-b8d4-db585a583d25&table=block&userId=d9ce54c1-a9aa-42bd-b00b-0fa98e409d2c
 
 백엔드 수업 시간에서 배웠던 CLRUD 기능을 잘 적용할 수 있는 것을 고민하던 중, 수많은 여행자들에게 편리한 교통편은 물론 홈, 호텔 등 다양한 숙소와 특별한 투어 및 액티비티까지 간편하게 예약할 수 있는 Booking.com의 사이트를 발견하게 되었습니다. 
 
