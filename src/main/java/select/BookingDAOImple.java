@@ -1,4 +1,4 @@
-package select;  
+package main.java.select;  
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import jdbc.customer.DBUtil;
+import main.java.common.JDBCTemplate;
 
 public class BookingDAOImple {
 
@@ -21,7 +21,7 @@ public class BookingDAOImple {
 
 		ArrayList<BookingDTO> acclist = new ArrayList<BookingDTO>();
 		try {
-			con = DBUtil.getConnection();
+			con = JDBCTemplate.getConnection();
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -37,7 +37,7 @@ public class BookingDAOImple {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.close(rs, stmt, con);
+			JDBCTemplate.close(rs, stmt, con);
 		}
 		return acclist;
 	}
@@ -55,7 +55,7 @@ public class BookingDAOImple {
 
 		ArrayList<BookingDTO> acclist = new ArrayList<BookingDTO>();
 		try {
-			con = DBUtil.getConnection();
+			con = JDBCTemplate.getConnection();
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, line);
 			rs = stmt.executeQuery();
@@ -76,7 +76,7 @@ public class BookingDAOImple {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {
-	        DBUtil.close(rs, stmt, con);
+	    	JDBCTemplate.close(rs, stmt, con);
 	    }
 	    return acclist;
 	}
@@ -93,7 +93,7 @@ public class BookingDAOImple {
 		ResultSet rs = null;
 		ArrayList<BookingDTO> acclist = new ArrayList<BookingDTO>();
 		try {
-			con = DBUtil.getConnection();
+			con = JDBCTemplate.getConnection();
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, location);
 			rs = stmt.executeQuery();
@@ -113,7 +113,7 @@ public class BookingDAOImple {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.close(rs, stmt, con);
+			JDBCTemplate.close(rs, stmt, con);
 		}
 		return acclist;
 	}
@@ -131,7 +131,7 @@ public class BookingDAOImple {
 
 		ArrayList<BookingDTO> acclist = new ArrayList<BookingDTO>();
 		try {
-			con = DBUtil.getConnection();
+			con = JDBCTemplate.getConnection();
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, choice);
 			rs = stmt.executeQuery();
@@ -143,7 +143,7 @@ public class BookingDAOImple {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.close(rs, stmt, con);
+			JDBCTemplate.close(rs, stmt, con);
 		}
 		return acclist;
 	}
@@ -162,7 +162,7 @@ public class BookingDAOImple {
 
 		ArrayList<BookingDTO> acclist = new ArrayList<BookingDTO>();
 		try {
-			con = DBUtil.getConnection();
+			con = JDBCTemplate.getConnection();
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, line);
 			rs = stmt.executeQuery();
@@ -174,7 +174,7 @@ public class BookingDAOImple {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.close(rs, stmt, con);
+			JDBCTemplate.close(rs, stmt, con);
 		}
 		return acclist;
 	}

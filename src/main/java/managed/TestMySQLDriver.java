@@ -1,4 +1,4 @@
-package mini;
+package main.java.managed;
 
 public class TestMySQLDriver {
     public static void main(String[] args) {

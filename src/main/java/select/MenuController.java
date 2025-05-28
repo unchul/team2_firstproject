@@ -1,4 +1,4 @@
-package select;  
+package main.java.select;  
 
 import java.util.ArrayList;
 import java.util.Scanner;

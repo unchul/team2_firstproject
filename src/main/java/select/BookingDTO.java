@@ -1,4 +1,4 @@
-package select;   
+package main.java.select;   
 
 public class BookingDTO {
 
