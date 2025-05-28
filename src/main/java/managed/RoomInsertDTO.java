@@ -4,7 +4,7 @@ package main.java.managed;
 //숙소 운영(운영여부상태) lodgment_state,
 //숙소남은방(남은객실수) lodgment_quantity,
 //숙소소개글 //lodgment_content
-public class roomInsertDTO {
+public class RoomInsertDTO {
 
 	private int lodgment_num;
 	private String lodgment_name;
@@ -13,7 +13,7 @@ public class roomInsertDTO {
 	private String lodgment_content;
 
 	// insert용
-	public roomInsertDTO(int lodgment_num, String lodgment_name, String lodgment_state, String lodgment_content) {
+	public RoomInsertDTO(int lodgment_num, String lodgment_name, String lodgment_state, String lodgment_content) {
 		super();
 		this.lodgment_num = lodgment_num;
 		this.lodgment_name = lodgment_name;
@@ -22,7 +22,7 @@ public class roomInsertDTO {
 	}
 
 	// select용
-	public roomInsertDTO(int lodgment_num, String lodgment_name, String lodgment_state, int lodgment_quantity,
+	public RoomInsertDTO(int lodgment_num, String lodgment_name, String lodgment_state, int lodgment_quantity,
 			String lodgment_content) {
 		super();
 		this.lodgment_num = lodgment_num;

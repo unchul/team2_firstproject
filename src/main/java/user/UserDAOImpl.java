@@ -74,9 +74,11 @@ public class UserDAOImpl {
 				user=  new UserDTO(rs.getString(1),
 						rs.getString(2),rs.getString(3),
 						rs.getString(4),rs.getString(5), rs.getString(6));
+				user.setUserState(rs.getString("user_state"));
 				 user.setUserNum(rs.getInt("user_num")); 
 				 user.setUserId(rs.getString("user_id"));
 				 //로그인 세션 저장
+				 LoginSession.loginUserState = user.getUserState();
 		            LoginSession.loggedInUserNum = user.getUserNum();
 		            LoginSession.loginUserId = user.getUserId();
 		            LoginSession.isLoggedIn = true;

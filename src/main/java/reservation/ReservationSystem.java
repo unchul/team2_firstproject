@@ -11,11 +11,6 @@ public class ReservationSystem {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ReservationService service = new ReservationService();
-
-        // 로그인 처리 - 테스트용으로 userId 수동 입력 (나중에 로그인 시스템 연결 예정)
-//        System.out.print("userId 입력 > ");
-//        int userId = sc.nextInt();
-//        sc.nextLine(); // 개행 문자 제거
         
         if (!LoginSession.isLoggedIn) {
             System.out.println("먼저 로그인 해주세요.");
@@ -25,7 +20,7 @@ public class ReservationSystem {
         currentUserNum = LoginSession.loggedInUserNum;
         service.setCurrentUserNum(currentUserNum);
         boolean isAdmin = LoginSession.isAdmin;
-        
+        System.out.println(isAdmin);
 
         if (isAdmin) {
             System.out.println("\n=== 관리자 예약 시스템 ===");
@@ -38,10 +33,21 @@ public class ReservationSystem {
             System.out.println("2. 예약 추가");
             System.out.println("3. 예약 수정");
             System.out.println("4. 예약 삭제");
-            System.out.println("0. 종료");
+            System.out.println("0. 메인 메뉴로 돌아가기");
             System.out.print("메뉴 선택 > ");
             int choice = sc.nextInt();
             sc.nextLine();
+            
+            if (choice == 0) {
+                System.out.println("메인 메뉴로 돌아갑니다...");
+                break;
+            }
+            try {
+                Thread.sleep(1000); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("\n============================\n");
 
             switch (choice) {
                 case 1:
@@ -60,10 +66,6 @@ public class ReservationSystem {
                 case 4:
                     service.deleteReservation(sc, isAdmin);
                     break;
-                case 0:
-                    System.out.println("시스템 종료");
-                    sc.close();
-                    return;
                 default:
                     System.out.println("잘못된 입력입니다.");
             }

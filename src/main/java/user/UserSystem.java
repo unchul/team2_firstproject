@@ -11,10 +11,9 @@ public class UserSystem {
 			System.out.println("******로그인/회원가입********");
 			System.out.println("1. 회원가입");
 			System.out.println("2. 로그인");
-			System.out.println("3. 예약내역확인");
-			System.out.println("4. 로그아웃");
-			System.out.println("5. 회원정보수정");
-			System.out.println("6. 회원탈퇴");
+			System.out.println("3. 로그아웃");
+			System.out.println("4. 회원정보수정");
+			System.out.println("5. 회원탈퇴");
             System.out.println("0. 메인 메뉴로 돌아가기");
 			System.out.print("원하는 작업을 선택하세요: ");
 
@@ -27,7 +26,7 @@ public class UserSystem {
 
 			show(choice, ui);
 			try {
-                Thread.sleep(1500); 
+                Thread.sleep(1000); 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -44,20 +43,12 @@ public class UserSystem {
 				ui.loginMenu();
 				break;
 			case 3:
-				// 로그인된 상태에서만 허용
-				if (LoginSession.isLoggedIn) {
-					// ui.showReservation(); // 아직 구현 안 되었음
-				} else {
-					System.out.println("먼저 로그인 해주세요.");
-				}
-				break;
-			case 4:
 				ui.logout();
 				break;
-			case 5:
+			case 4:
 				ui.updateMenu();
 				break;
-			case 6:
+			case 5:
 				ui.deleteMenu();
 				break;
 			default:

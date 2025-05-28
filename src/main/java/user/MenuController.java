@@ -64,8 +64,9 @@ public class MenuController {
 			System.out.println("로그인성공");
 			LoginSession.isLoggedIn = true;
 	        LoginSession.loginUserId = loginUser.getUserId();
-	        LoginSession.isAdmin = "관리자".equals(loginUser.getUserState());
 	        LoginSession.loginUserState = loginUser.getUserState();
+	        LoginSession.isAdmin = "관리자".equals(loginUser.getUserState());
+	        System.out.println(loginUser.getUserState());
 		} else {
 			System.out.println("로그인실패");
 		}

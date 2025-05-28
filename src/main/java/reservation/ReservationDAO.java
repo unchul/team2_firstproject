@@ -1,13 +1,17 @@
 // ReservationDAO.java
 package main.java.reservation;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import main.java.common.JDBCTemplate;
 
 public class ReservationDAO {
     public void selectAll() {
         String sql = "SELECT * FROM reservation";
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (Connection con = JDBCTemplate.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
@@ -29,8 +33,8 @@ public class ReservationDAO {
 
     public void selectByUserNum(int userNum) {
         String sql = "SELECT * FROM reservation WHERE user_num = ?";
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection con = JDBCTemplate.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, userNum);
             ResultSet rs = pstmt.executeQuery();
@@ -56,8 +60,8 @@ public class ReservationDAO {
         String sql = "INSERT INTO reservation (reservation_key, lodging_num, lodging_room, reservation_date, user_num, guest, reservation_period) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection con = JDBCTemplate.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, reservationKey);
             pstmt.setInt(2, r.getLodgingNum());
@@ -76,8 +80,8 @@ public class ReservationDAO {
 
     public int getNextReservationKey() {
         String sql = "SELECT MAX(reservation_key) FROM reservation";
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (Connection con = JDBCTemplate.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
@@ -94,8 +98,8 @@ public class ReservationDAO {
             "UPDATE reservation SET reservation_date = ?, guest = ? WHERE reservation_key = ?" :
             "UPDATE reservation SET reservation_date = ?, guest = ? WHERE reservation_key = ? AND user_num = ?";
 
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection con = JDBCTemplate.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setString(1, newDate);
             pstmt.setInt(2, newGuest);
@@ -115,8 +119,8 @@ public class ReservationDAO {
             "DELETE FROM reservation WHERE reservation_key = ?" :
             "DELETE FROM reservation WHERE reservation_key = ? AND user_num = ?";
 
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection con = JDBCTemplate.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, reservationKey);
             if (!isAdmin) pstmt.setInt(2, userNum);
