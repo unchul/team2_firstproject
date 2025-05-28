@@ -75,11 +75,11 @@ public class UserDAOImpl {
 						rs.getString(2),rs.getString(3),
 						rs.getString(4),rs.getString(5), rs.getString(6));
 				 user.setUserNum(rs.getInt("user_num")); 
+				 user.setUserId(rs.getString("user_id"));
 				 //로그인 세션 저장
 		            LoginSession.loggedInUserNum = user.getUserNum();
+		            LoginSession.loginUserId = user.getUserId();
 		            LoginSession.isLoggedIn = true;
-//				System.out.println(user.getUserNum());
-
 			}
 	
 		} catch (SQLException e) {
@@ -99,9 +99,7 @@ public class UserDAOImpl {
 
 	    try {
 	        con = JDBCTemplate.getConnection();
-	        System.out.println("연결성공:" + con);
 	        ptmt = con.prepareStatement(sql.toString());
-	        System.out.println("Statement객체생성=>" + ptmt);
 	        ptmt.setString(1, user.getUserPass());
 	        ptmt.setString(2, user.getUserId());
 	        result = ptmt.executeUpdate();
@@ -134,5 +132,33 @@ public class UserDAOImpl {
 	        return result;
 
 	}
+	public UserDTO findById(String userId) {
+	    String sql = "select * from users where user_id = ?";
+	    UserDTO user = null;
+
+	    try (Connection con = JDBCTemplate.getConnection();
+	         PreparedStatement ptmt = con.prepareStatement(sql)) {
+
+	        ptmt.setString(1, userId);
+	        try (ResultSet rs = ptmt.executeQuery()) {
+	            if (rs.next()) {
+	                user = new UserDTO(
+	                    rs.getString("user_id"),
+	                    rs.getString("user_pass"),
+	                    rs.getString("user_name"),
+	                    rs.getString("user_addr"),
+	                    rs.getString("phon_number"),
+	                    rs.getString("user_state")
+	                );
+	                user.setUserNum(rs.getInt("user_num"));
+	                user.setUserId(rs.getString("user_id"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return user;
+	}
+	
 
 }

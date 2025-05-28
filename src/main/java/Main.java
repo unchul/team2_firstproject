@@ -1,6 +1,8 @@
 package main.java;
 
 import java.util.Scanner;
+
+import main.java.reservation.ReservationSystem;
 import main.java.user.UserSystem;
 
 public class Main {
@@ -21,9 +23,9 @@ public class Main {
                 case 1:
                     UserSystem.main(args); // UserSystem 진입
                     break;
-//                case 2:
-//                    ReservationSystem.main(args); // ReservationSystem 진입
-//                    break;
+                case 2:
+                    ReservationSystem.main(args); // ReservationSystem 진입
+                    break;
                 case 0:
                     System.out.println("프로그램을 종료합니다.");
                     sc.close();
