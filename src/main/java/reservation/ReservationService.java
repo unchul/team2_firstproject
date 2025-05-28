@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class ReservationService {
     private final ReservationDAO dao = new ReservationDAO();
-    private int currentUserId; // 로그인한 사용자 ID 보관
+    private int currentUserNum; // 로그인한 사용자 ID 보관
 
 
-    public void setCurrentUserId(int userId) {
-        this.currentUserId = userId;
+    public void setCurrentUserNum(int userNum) {
+        this.currentUserNum = userNum;
     }
 
     public void selectAll() {
@@ -18,7 +18,7 @@ public class ReservationService {
     }
 
     public void selectMyReservations() {
-        dao.selectByUserId(currentUserId);
+        dao.selectByUserNum(currentUserNum);
     }
 
     public void insertReservation(Scanner sc) {
@@ -40,7 +40,7 @@ public class ReservationService {
         System.out.print("숙박 기간 (박 수): ");
         int period = sc.nextInt();
 
-        Reservation r = new Reservation(lodgingNum, room, date, currentUserId, guest, period);
+        Reservation r = new Reservation(lodgingNum, room, date, currentUserNum, guest, period);
         dao.insert(newKey, r);
     }
 
@@ -55,13 +55,13 @@ public class ReservationService {
         System.out.print("인원 수 변경: ");
         int newGuest = sc.nextInt();
 
-        dao.update(resKey, newDate, newGuest, currentUserId, isAdmin);
+        dao.update(resKey, newDate, newGuest, currentUserNum, isAdmin);
     }
 
     public void deleteReservation(Scanner sc, boolean isAdmin) {
         System.out.print("취소할 예약 번호 입력: ");
         int resKey = sc.nextInt();
 
-        dao.delete(resKey, currentUserId, isAdmin);
+        dao.delete(resKey, currentUserNum, isAdmin);
     }
 } 
