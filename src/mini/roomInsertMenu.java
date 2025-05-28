@@ -1,5 +1,4 @@
 package mini;
-
 //숙소(primary) lodgment_num,
 //숙소(숙소이름) lodgment_name, 
 //숙소 운영(운영여부상태) lodgment_state,
@@ -17,16 +16,16 @@ public class roomInsertMenu {
 		System.out.print("숙소코드: ");
 		int lodgment_num = key.nextInt();
 		key.nextLine();
-
+		
 		System.out.print("숙소이름: ");
 		String lodgment_name = key.nextLine();
-
+		
 		System.out.print("숙소운영상태: ");
 		String lodgment_state = key.nextLine();
-
+		
 		System.out.print("숙소소개글: ");
 		String lodgment_content = key.nextLine();
-
+		
 		roomInsertDTO room = new roomInsertDTO(lodgment_num, lodgment_name, lodgment_state, lodgment_content);
 		int result = dao.insert(room);
 		if (result >= 1) {
@@ -34,9 +33,9 @@ public class roomInsertMenu {
 			System.out.println("등록성공");
 			System.out.println("=========================");
 		} else {
-			System.out.println("=========================");
+			System.out.println("--------------------------");
 			System.out.println("재등록바랍니다.");
-			System.out.println("=========================");
+			System.out.println("--------------------------");
 		}
 	}
 
@@ -44,13 +43,13 @@ public class roomInsertMenu {
 		System.out.println("**숙소정보수정**");
 		System.out.print("숙소상태: ");
 		String lodgment_state = key.nextLine();
-
+		
 		System.out.print("숙소소개글: ");
 		String lodgment_content = key.nextLine();
-
+		
 		System.out.print("숙소코드: ");
 		int lodgment_num = key.nextInt();
-
+		
 		int result = dao.update(lodgment_state, lodgment_content, lodgment_num);
 		if (result >= 1) {
 			System.out.println("=========================");
@@ -68,7 +67,6 @@ public class roomInsertMenu {
 		System.out.println("***숙소정보삭제***");
 		System.out.print("삭제할 숙소코드: ");
 		int lodgment_num = key.nextInt();
-
 		int result = dao.delete(lodgment_num);
 		if (result >= 1) {
 			System.out.println("=========================");
@@ -116,27 +114,26 @@ public class roomInsertMenu {
 			System.out.println("==============================");
 		}
 	}
-
 	public void selectName() {
-		System.out.print("검색할 숙소명을 입력하세요: ");
-		String name = key.next();
+	    System.out.print("검색할 숙소명을 입력하세요: ");
+	    String name = key.next();
 
-		ArrayList<roomInsertDTO> list = dao.selectName(name);
+	    ArrayList<roomInsertDTO> list = dao.selectName(name);
 
-		if (list.isEmpty()) {
+	    if (list.isEmpty()) {
 			System.out.println("==============================");
-			System.out.println("해당 이름을 포함하는 숙소가 없습니다.");
+	        System.out.println("해당 이름을 포함하는 숙소가 없습니다.");
 			System.out.println("==============================");
-		} else {
-			for (roomInsertDTO room : list) {
-				System.out.println("==============================");
-				System.out.println("숙소코드     : " + room.getLodgment_num());
-				System.out.println("숙소명       : " + room.getLodgment_name());
-				System.out.println("숙소상태     : " + room.getLodgment_state());
-				System.out.println("남은객실수   : " + room.getLodgment_quantity());
-				System.out.println("숙소소개글   : " + room.getLodgment_content());
-			}
-			System.out.println("==============================");
-		}
+	    } else {
+	        for (roomInsertDTO room : list) {
+	            System.out.println("==============================");
+	            System.out.println("숙소코드     : " + room.getLodgment_num());
+	            System.out.println("숙소명       : " + room.getLodgment_name());
+	            System.out.println("숙소상태     : " + room.getLodgment_state());
+	            System.out.println("남은객실수   : " + room.getLodgment_quantity());
+	            System.out.println("숙소소개글   : " + room.getLodgment_content());
+	        }
+	        System.out.println("==============================");
+	    }
 	}
 }
