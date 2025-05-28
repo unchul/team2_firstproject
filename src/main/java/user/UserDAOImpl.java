@@ -31,8 +31,35 @@ public class UserDAOImpl {
         }
 		return result;
 	}
+	public boolean isUserIdExists(String userId) {
+	    String sql = "SELECT 1 FROM users WHERE user_id = ?";
+	    try (Connection con = JDBCTemplate.getConnection();
+	         PreparedStatement ptmt = con.prepareStatement(sql)) {
+	        ptmt.setString(1, userId);
+	        try (ResultSet rs = ptmt.executeQuery()) {
+	            return rs.next(); // true = 중복 있음
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
+	public boolean isPhoneExists(String phoneNumber) {
+	    String sql = "SELECT 1 FROM users WHERE phon_number = ?";
+	    try (Connection con = JDBCTemplate.getConnection();
+	         PreparedStatement ptmt = con.prepareStatement(sql)) {
+	        ptmt.setString(1, phoneNumber);
+	        try (ResultSet rs = ptmt.executeQuery()) {
+	            return rs.next();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
 	public UserDTO login(String userId, String userPass) {
-		String sql = "select * from users where id=? and pass=?";
+		String sql = "select * from users where user_id=? and user_pass=?";
 		Connection con = null;
 		PreparedStatement ptmt = null;
 		ResultSet rs = null;
@@ -47,8 +74,11 @@ public class UserDAOImpl {
 				user=  new UserDTO(rs.getString(1),
 						rs.getString(2),rs.getString(3),
 						rs.getString(4),rs.getString(5), rs.getString(6));
-				//변환된 DTO를 ArrayList에 저장
-				System.out.println(user);
+				 user.setUserNum(rs.getInt("user_num")); 
+				 //로그인 세션 저장
+		            LoginSession.loggedInUserNum = user.getUserNum();
+		            LoginSession.isLoggedIn = true;
+//				System.out.println(user.getUserNum());
 
 			}
 	
@@ -60,6 +90,49 @@ public class UserDAOImpl {
 		}
 		return user;
 	}
-	
+	public int update(UserDTO user) {
+	    StringBuffer sql = new StringBuffer();
+	    sql.append("update users SET user_pass=? where user_id=?");
+	    Connection con = null;
+	    PreparedStatement ptmt = null;
+	    int result = 0;
+
+	    try {
+	        con = JDBCTemplate.getConnection();
+	        System.out.println("연결성공:" + con);
+	        ptmt = con.prepareStatement(sql.toString());
+	        System.out.println("Statement객체생성=>" + ptmt);
+	        ptmt.setString(1, user.getUserPass());
+	        ptmt.setString(2, user.getUserId());
+	        result = ptmt.executeUpdate();
+	        System.out.println(result + "값 수정성공!");
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	    	JDBCTemplate.close(null, ptmt, con);
+	    }
+
+	    return result;
+	}
+	public int delete(UserDTO user) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from users where user_id=?");
+		Connection con = null;
+		PreparedStatement ptmt = null;
+		int result = 0;
+			try {
+	            con = JDBCTemplate.getConnection();
+				ptmt = con.prepareStatement(sql.toString());
+				ptmt.setString(1,user.getUserId());
+				result = ptmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(null, ptmt, con);
+			}
+	        return result;
+
+	}
 
 }
