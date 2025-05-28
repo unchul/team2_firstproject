@@ -6,6 +6,7 @@ package mini;
 //숙소소개글 //lodgment_content
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class roomInsertMenu {
 	Scanner key = new Scanner(System.in);
 	roomInsertDAOImpl dao = new roomInsertDAOImpl();
@@ -66,7 +67,6 @@ public class roomInsertMenu {
 		System.out.println("***숙소정보삭제***");
 		System.out.print("삭제할 숙소코드: ");
 		int lodgment_num = key.nextInt();
-		
 		int result = dao.delete(lodgment_num);
 		if (result >= 1) {
 			System.out.println("=========================");

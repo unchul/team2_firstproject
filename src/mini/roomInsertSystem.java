@@ -1,10 +1,12 @@
 package mini;
+
 //숙소(primary) lodgment_num,
 //숙소(숙소이름) lodgment_name, 
 //숙소 운영(운영여부상태) lodgment_state,
 //숙소남은방(남은객실수) lodgment_quantity,
 //숙소소개글 //lodgment_content
 import java.util.Scanner;
+
 public class roomInsertSystem {
 	public static void main(String[] args) {
 		Scanner key = new Scanner(System.in);

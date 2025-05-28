@@ -1,15 +1,12 @@
 package mini;
-//숙소(primary) lodgment_num,
-//숙소(숙소이름) lodgment_name, 
-//숙소 운영(운영여부상태) lodgment_state,
-//숙소남은방(남은객실수) lodgment_quantity,
-//숙소소개글 //lodgment_content
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 public class roomInsertDAOImpl {
 
 	public int insert(roomInsertDTO room) {
@@ -84,7 +81,7 @@ public class roomInsertDAOImpl {
 		}
 		return 0;
 	}
-	
+
 	public int delete(int lodgment_num) {
 		String url = "jdbc:mysql://127.0.0.1:3306/shop?serverTimezone=UTC";
 		String user = "shop";
@@ -93,7 +90,7 @@ public class roomInsertDAOImpl {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, password);
@@ -101,7 +98,7 @@ public class roomInsertDAOImpl {
 			pstmt.setInt(1, lodgment_num);
 			int result = pstmt.executeUpdate();
 			return result;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace(); // 예외 메시지 출력
 		} finally {
@@ -117,8 +114,9 @@ public class roomInsertDAOImpl {
 		}
 		return 0;
 	}
-	
-	public ArrayList<roomInsertDTO> select(){
+
+	public ArrayList<roomInsertDTO> select() {
+    
 		String url = "jdbc:mysql://127.0.0.1:3306/shop?serverTimezone=UTC";
 		String user = "shop";
 		String password = "shop";
@@ -144,6 +142,7 @@ public class roomInsertDAOImpl {
 	            String content = rs.getString("lodgment_content");
 	            roomInsertDTO room = new roomInsertDTO(num, name, state, quantity, content);
 	            roomlist.add(room);
+
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
