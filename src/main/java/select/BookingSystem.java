@@ -22,6 +22,12 @@ public class BookingSystem {
                 System.out.println("메인 메뉴로 돌아갑니다.\n");
                 break; 
             }
+            try {
+                Thread.sleep(1000); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("\n============================\n");
 
             show(choice);
             System.out.println();
