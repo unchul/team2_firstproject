@@ -13,10 +13,13 @@ public class ReservationDAO {
             while (rs.next()) {
                 System.out.println(
                     rs.getInt("reservation_key") + " | " +
+                    rs.getInt("user_id") + " | " +
                     rs.getInt("lodging_num") + " | " +
                     rs.getString("lodging_room") + " | " +
                     rs.getDate("reservation_date") + " | " +
-                    rs.getInt("guest") + "명"
+                    rs.getInt("guest") + "명" + " | " +
+                    rs.getInt("reservation_period") + "박"
+
                 );
             }
         } catch (Exception e) {
@@ -35,10 +38,12 @@ public class ReservationDAO {
             while (rs.next()) {
                 System.out.println(
                     rs.getInt("reservation_key") + " | " +
+                    rs.getInt("user_id") + " | " +
                     rs.getInt("lodging_num") + " | " +
                     rs.getString("lodging_room") + " | " +
                     rs.getDate("reservation_date") + " | " +
-                    rs.getInt("guest") + "명"
+                    rs.getInt("guest") + "명" + " | " +
+                    rs.getInt("reservation_period") + "박"
                 );
             }
             rs.close();

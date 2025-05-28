@@ -3,7 +3,7 @@ package main.java.reservation;
 
 import java.util.Scanner;
 
-public class Main {
+public class ReservationSystem {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ReservationService service = new ReservationService();
@@ -12,6 +12,12 @@ public class Main {
         System.out.print("userId 입력 > ");
         int userId = sc.nextInt();
         sc.nextLine(); // 개행 문자 제거
+        
+        
+        /// 여기로 수정!! userId 넘겨받는것만 추가 수정하고, userId 선언 시 static이어야 함
+        // int userId = Login.loginUser.getUserId();
+
+        
 
         service.setCurrentUserId(userId);
         boolean isAdmin = (userId == 0000);
@@ -34,6 +40,9 @@ public class Main {
 
             switch (choice) {
                 case 1:
+                	System.out.println("\n[예약번호 | 유저id | 숙소코드 | 룸번호 | 예약일 | 투숙인원 | 기간]");
+                	System.out.println("-------------------------------------------------");
+
                     if (isAdmin) service.selectAll();
                     else service.selectMyReservations();
                     break;
