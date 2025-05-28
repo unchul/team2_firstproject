@@ -1,4 +1,4 @@
-package mini;
+package main.java.managed;
 //숙소(primary) lodgment_num,
 //숙소(숙소이름) lodgment_name, 
 //숙소 운영(운영여부상태) lodgment_state,
