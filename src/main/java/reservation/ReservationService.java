@@ -8,6 +8,7 @@ public class ReservationService {
     private final ReservationDAO dao = new ReservationDAO();
     private int currentUserId; // 로그인한 사용자 ID 보관
 
+
     public void setCurrentUserId(int userId) {
         this.currentUserId = userId;
     }
@@ -27,7 +28,7 @@ public class ReservationService {
         int lodgingNum = sc.nextInt();
         sc.nextLine();
 
-        System.out.print("룸 이름: ");
+        System.out.print("룸 번호(예: 숙소번호_01): ");
         String room = sc.nextLine();
 
         System.out.print("예약일 (yyyy-mm-dd): ");
@@ -48,17 +49,17 @@ public class ReservationService {
         int resKey = sc.nextInt();
         sc.nextLine();
 
-        System.out.print("변경할 예약일 (yyyy-mm-dd): ");
+        System.out.print("예약일 변경 (yyyy-mm-dd): ");
         String newDate = sc.nextLine();
 
-        System.out.print("변경할 인원 수: ");
+        System.out.print("인원 수 변경: ");
         int newGuest = sc.nextInt();
 
         dao.update(resKey, newDate, newGuest, currentUserId, isAdmin);
     }
 
     public void deleteReservation(Scanner sc, boolean isAdmin) {
-        System.out.print("삭제할 예약 번호 입력: ");
+        System.out.print("취소할 예약 번호 입력: ");
         int resKey = sc.nextInt();
 
         dao.delete(resKey, currentUserId, isAdmin);
