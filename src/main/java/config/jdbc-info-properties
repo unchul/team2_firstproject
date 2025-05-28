@@ -1,4 +1,0 @@
-url=jdbc:mysql://192.168.0.27:3306/travel?serverTimezone=UTC
-driver=com.mysql.cj.jdbc.Driver
-user=shop
-password=shop
