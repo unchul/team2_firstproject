@@ -5,4 +5,13 @@ public class LoginSession {
 	public static String loginUserId = null;
 	public static boolean isLoggedIn = false;
     public static boolean isAdmin = false;
+    public static String loginUserState = null;
+
+    
+    public static void logout() {
+        isLoggedIn = false;
+        loginUserId = null;
+        loginUserState = null;
+        isAdmin = false;
+    }
 }

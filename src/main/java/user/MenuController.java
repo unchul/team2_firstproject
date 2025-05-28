@@ -49,6 +49,10 @@ public class MenuController {
 	}
 
 	public void loginMenu() {
+		if (LoginSession.isLoggedIn) {
+	        System.out.println("이미 로그인된 상태입니다. 로그아웃 후 다시 시도해주세요.");
+	        return;
+	    }
 		System.out.println("*******로그인********");
 		System.out.print("아이디:");
 		String id = key.next();
@@ -61,6 +65,7 @@ public class MenuController {
 			LoginSession.isLoggedIn = true;
 	        LoginSession.loginUserId = loginUser.getUserId();
 	        LoginSession.isAdmin = "관리자".equals(loginUser.getUserState());
+	        LoginSession.loginUserState = loginUser.getUserState();
 		} else {
 			System.out.println("로그인실패");
 		}
@@ -86,21 +91,33 @@ public class MenuController {
 	}
 
 	public void deleteMenu() {
+		 if (!LoginSession.isLoggedIn) {
+		        System.out.println("로그인 후 이용 바랍니다.");
+		        return;
+		    }
 		System.out.println("*******회원탈퇴********");
-		System.out.print("삭제할id:");
-		String id = key.next();
-		UserDTO user = new UserDTO(id);
-		int result = dao.delete(user);
-		if (result >= 1) {
-			System.out.println("=========================");
-			System.out.println("삭제성공");
-			System.out.println("=========================");
-		} else {
-			System.out.println("--------------------------");
-			System.out.println("삭제실패");
-			System.out.println("--------------------------");
-		}
-
+	    String loginId = LoginSession.loginUserId;
+	    System.out.print("비밀번호를 다시 입력하세요: ");
+	    String inputPass = key.next();
+	    
+	    UserDTO user = dao.findById(loginId);
+	    
+	    if (user != null && user.getUserPass().equals(inputPass)) {
+	        // 비밀번호 일치 시 삭제
+	        int result = dao.delete(user);
+	        if (result >= 1) {
+	            System.out.println("=========================");
+	            System.out.println("회원 탈퇴가 완료되었습니다.");
+	            System.out.println("=========================");
+	            LoginSession.logout(); // 세션 초기화
+	        } else {
+	            System.out.println("--------------------------");
+	            System.out.println("회원 탈퇴 중 오류가 발생했습니다.");
+	            System.out.println("--------------------------");
+	        }
+	    } else {
+	        System.out.println("비밀번호가 일치하지 않습니다.");
+	    }
 	}
 	public void logout() {
 	    if (LoginSession.isLoggedIn) {

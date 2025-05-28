@@ -3,7 +3,11 @@ package main.java.reservation;
 
 import java.util.Scanner;
 
+import main.java.user.LoginSession;
+
 public class ReservationSystem {
+    private static int currentUserId; // static 선언
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ReservationService service = new ReservationService();
@@ -16,11 +20,15 @@ public class ReservationSystem {
         
         /// 여기로 수정!! userId 넘겨받는것만 추가 수정하고, userId 선언 시 static이어야 함
         // int userId = Login.loginUser.getUserId();
+        if (!LoginSession.isLoggedIn) {
+            System.out.println("먼저 로그인 해주세요.");
+            return;
+        }
 
-        
-
+        userId = LoginSession.loggedInUserNum;
         service.setCurrentUserId(userId);
-        boolean isAdmin = (userId == 0000);
+        boolean isAdmin = LoginSession.isAdmin;
+        
 
         if (isAdmin) {
             System.out.println("\n=== 관리자 예약 시스템 ===");
